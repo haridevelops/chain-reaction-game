@@ -124,18 +124,6 @@ function triggerChainReaction(options){
 	}
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 const createUserObject = (index) => {
     return {
         user: { username, room },
