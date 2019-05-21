@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Chain Reaction</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+  </head>
+  <body>
+
+    <div class="container-fluid">
+				<div class="row">
+					<div id="info" class="alert alert-info col-md-2 col-md-offset-5" role="alert">
+					<span>Click in the Square...</span>		
+				</div>
+			</div>
+			<div class="row">
+				<div id="turn" class="alert alert-info col-md-2 col-md-offset-5" role="alert">
+				<span>Click in the Square...</span>		
+			</div>
+		</div>
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<table class="table-bordered table-condensed">
+				<tbody>
+					<tr>
+						<td class="cell">
+							<img src="img/blank.png" id="id00" data-color="blank" data-value="0" data-capacity="2" data-x="0" data-y="0"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id01" data-color="blank" data-value="0" data-capacity="3" data-x="0" data-y="1"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id02" data-color="blank" data-value="0" data-capacity="3" data-x="0" data-y="2"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id03" data-color="blank" data-value="0" data-capacity="3" data-x="0" data-y="3"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id04" data-color="blank" data-value="0" data-capacity="2" data-x="0" data-y="4"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell">
+							<img src="img/blank.png" id="id10" data-color="blank" data-value="0" data-capacity="3" data-x="1" data-y="0"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id11" data-color="blank" data-value="0" data-capacity="4" data-x="1" data-y="1"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id12" data-color="blank" data-value="0" data-capacity="4" data-x="1" data-y="2"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id13" data-color="blank" data-value="0" data-capacity="4" data-x="1" data-y="3"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id14" data-color="blank" data-value="0" data-capacity="3" data-x="1" data-y="4"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell">
+							<img src="img/blank.png" id="id20" data-color="blank" data-value="0" data-capacity="3" data-x="2" data-y="0"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id21" data-color="blank" data-value="0" data-capacity="4" data-x="2" data-y="1"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id22" data-color="blank" data-value="0" data-capacity="4" data-x="2" data-y="2"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id23" data-color="blank" data-value="0" data-capacity="4" data-x="2" data-y="3"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id24" data-color="blank" data-value="0" data-capacity="3" data-x="2" data-y="4"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell">
+							<img src="img/blank.png" id="id30" data-color="blank" data-value="0" data-capacity="3" data-x="3" data-y="0"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id31" data-color="blank" data-value="0" data-capacity="4" data-x="3" data-y="1"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id32" data-color="blank" data-value="0" data-capacity="4" data-x="3" data-y="2"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id33" data-color="blank" data-value="0" data-capacity="4" data-x="3" data-y="3"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id34" data-color="blank" data-value="0" data-capacity="3" data-x="3" data-y="4"/>
+						</td>
+					</tr>
+					<tr>
+						<td class="cell">
+							<img src="img/blank.png" id="id40" data-color="blank" data-value="0" data-capacity="2" data-x="4" data-y="0"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id41" data-color="blank" data-value="0" data-capacity="3" data-x="4" data-y="1"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id42" data-color="blank" data-value="0" data-capacity="3" data-x="4" data-y="2"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id43" data-color="blank" data-value="0" data-capacity="3" data-x="4" data-y="3"/>
+						</td>
+						<td class="cell">
+							<img src="img/blank.png" id="id44" data-color="blank" data-value="0" data-capacity="2" data-x="4" data-y="4"/>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3">
+			<div id="message" class="alert alert-danger">
+				<span>Click in the Square...</span>
+			</div>
+		</div>
+	</div>
+</div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+		<script src="/socket.io/socket.io.js" ></script>
+		<script src="js/socket.js" ></script>
+		<!-- <script src="js/scripts.js"></script> -->
+  </body>
+</html>
