@@ -40,6 +40,9 @@ $cell.forEach((cell) => {
 			let userIndex = createUserObject(index);
 			socket.emit('cellClickEvent', userIndex, (response, error) => {
 				console.log('callback received from server !!', response);
+				if (error) {
+					alert(error);
+				}
 			})
 
 		} else {

@@ -30,6 +30,7 @@ io.on("connection", (socket) => {
 
 
     socket.on('cellClickEvent', (options, callback) => {
+        if (getUsersInRoom(options.user.room).length !== 2) return callback('','opponent not joined')
         console.log(options)
         const user = getUser(socket.id);
         if (options.user.username === user.username) {
