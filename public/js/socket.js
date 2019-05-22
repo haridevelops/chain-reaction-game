@@ -26,15 +26,28 @@ const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true }
 
 $cell.forEach((cell) => {
     cell.addEventListener('click', (event) => {
-        if (opponentTurn) return displayErrorMessage('turn');
-        let index = findCoordinates(event);
-        if (index.row === undefined && index.column === undefined) {
-            return displayErrorMessage('info');
-        }
-        let userIndex = createUserObject(index);
-        socket.emit('cellClickEvent', userIndex, (response, error) => {
-            console.log('callback received from server !!', response);
-        })
+		let index = findCoordinates(event);
+		let clickedCell = $(`#id${index.row}${index.column}`);
+		let color = clickedCell.attr('data-color');
+		console.log(color);
+		console.log('next turn before emit',currentTurn)
+		if (opponentTurn) return displayErrorMessage('#turn');
+
+		if (currentTurn === color || color === 'blank') {
+			if (index.row === undefined && index.column === undefined) {
+				return displayErrorMessage('#info');
+			}
+			let userIndex = createUserObject(index);
+			socket.emit('cellClickEvent', userIndex, (response, error) => {
+				console.log('callback received from server !!', response);
+			})
+
+		} else {
+			return displayErrorMessage('#info');
+		}
+		
+
+		console.log('next turn after emit',currentTurn)
     });    
 })
 
@@ -187,7 +200,7 @@ function triggerChainReaction(options){
 const createUserObject = (index) => {
     return {
         user: { username, room },
-        index,
+		index
     }
 }
 
