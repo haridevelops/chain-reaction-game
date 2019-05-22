@@ -26,11 +26,10 @@ const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true }
 
 $cell.forEach((cell) => {
     cell.addEventListener('click', (event) => {
-        console.log(event.target)
-        if (opponentTurn) return displayErrorMessage('opponent turn');
+        if (opponentTurn) return displayErrorMessage('turn');
         let index = findCoordinates(event);
         if (index.row === undefined && index.column === undefined) {
-            return displayErrorMessage();
+            return displayErrorMessage('info');
         }
         let userIndex = createUserObject(index);
         socket.emit('cellClickEvent', userIndex, (response, error) => {
@@ -97,6 +96,67 @@ const insertAtom = (options, trigger) => {
 	}
 }
 
+const insertAtomToNeighbours = (obj, trigger) => {
+	var currentCell = $(obj);
+	var color = currentCell.attr('data-color');
+	var value = Number(currentCell.attr('data-value'));
+	var capacity = Number(currentCell.attr('data-capacity'));
+
+	if(!trigger) {
+		if(color === currentTurn || color === 'blank') {
+			if(value < capacity) {
+				$(obj).attr({
+					'src' : 'img/'+currentTurn+(value+1)+'.png',
+					'data-color' : currentTurn,
+					'data-value': ''+(value+1)
+				});
+			}
+		} else {
+			error = true;
+		}
+	} else {
+		if(value < capacity) {
+			$(obj).attr({
+				'src' : 'img/'+currentTurn+(value+1)+'.png',
+				'data-color' : currentTurn,
+				'data-value': ''+(value+1)
+			});
+		}
+	}
+		
+
+	if(!error) {
+		triggetChainReactionToNeighbours(obj);
+	}
+}
+
+const triggetChainReactionToNeighbours = (obj) => {
+	var currentCell = $(obj);
+	var value = currentCell.attr('data-value');
+	var capacity = currentCell.attr('data-capacity');
+
+	if(capacity === value) {
+		currentCell.attr({
+				'src' : 'img/blank.png',
+				'data-color' : 'blank',
+				'data-value': '0'
+			});
+		calculateNeighbours(currentCell);
+		if($(left).length){
+			insertAtomToNeighbours($(left), true);
+		}
+		if($(right).length){
+			insertAtomToNeighbours($(right), true);
+		}
+		if($(above).length){
+			insertAtomToNeighbours($(above), true);
+		}
+		if($(below).length){
+			insertAtomToNeighbours($(below), true);
+		}
+	}
+}
+
 function triggerChainReaction(options){
 	var currentCell = $(`#id${options.index.row}${options.index.column}`);
 	var value = currentCell.attr('data-value');
@@ -110,16 +170,16 @@ function triggerChainReaction(options){
 			});
 		calculateNeighbours(currentCell);
 		if($(left).length){
-			insertAtom($(left), true);
+			insertAtomToNeighbours($(left), true);
 		}
 		if($(right).length){
-			insertAtom($(right), true);
+			insertAtomToNeighbours($(right), true);
 		}
 		if($(above).length){
-			insertAtom($(above), true);
+			insertAtomToNeighbours($(above), true);
 		}
 		if($(below).length){
-			insertAtom($(below), true);
+			insertAtomToNeighbours($(below), true);
 		}
 	}
 }
@@ -138,10 +198,10 @@ const findCoordinates = (event) => {
     }
 }
 
-const displayErrorMessage = (errMsg) => {
-    $('#info').show();
+const displayErrorMessage = (errID) => {
+    $(errID).show();
     return setTimeout(() => {
-        $('#info').hide();
+        $(errID).hide();
     }, 2000);
 }
 
