@@ -18,6 +18,8 @@ io.on("connection", (socket) => {
     console.log('New Web Socket Connection');
 
     socket.on('newUser', (options, callback) => {
+        if (getUsersInRoom(options.room).length >= 2) return callback('More than two players not allowed');
+
         const { error, user } = addUser({ id: socket.id, ...options });
 
         if (error) return callback(error)
@@ -29,14 +31,14 @@ io.on("connection", (socket) => {
 
     socket.on('cellClickEvent', (options, callback) => {
         console.log(options)
-        // const { error, user } = addUser({ id: socket.id, ...options.user });
-        
-        // socket.join(options.user.room);
+        const user = getUser(socket.id);
+        if (options.user.username === user.username) {
+            io.to(options.user.room).emit('cellClickEventResponse', options);
+            callback(options);
+        }
 
-        io.to(options.user.room).emit('cellClickEventResponse', options);
-        
-        callback(options);
     })
+
 });
 
 
