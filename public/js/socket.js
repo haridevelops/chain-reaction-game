@@ -61,6 +61,13 @@ socket.emit('newUser', { username, room }, (error) => {
     }
 })
 
+socket.on('disconnect', (response) => {
+	if (response) {
+		alert('Opponent Disconnected');
+		location.href = "/"
+	}
+})
+
 socket.on('cellClickEventResponse', (options) => {
     console.log('event received', options)
     if (options.user.username == username) {

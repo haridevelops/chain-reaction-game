@@ -2,7 +2,7 @@ const express = require('express');
 const path = require('path');
 const http = require('http');
 const socket = require('socket.io');
-const { addUser, getUser, getUsersInRoom, removeUser } = require("./utils/users");
+const { addUser, getUser, getUsersInRoom, removeUser, getUserById } = require("./utils/users");
 
 const app = express();
 const server = http.createServer(app);
@@ -38,6 +38,16 @@ io.on("connection", (socket) => {
             callback(options);
         }
 
+    })
+
+    socket.on('disconnect', () => {
+        const user = getUserById(socket.id);
+        
+        if (user) {
+            removeUser(socket.id);
+            io.to(user.room).emit('disconnect', true);
+            console.log(getUsersInRoom(user.room))
+        }
     })
 
 });
