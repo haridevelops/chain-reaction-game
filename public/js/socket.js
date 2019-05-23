@@ -20,6 +20,7 @@ var opponentTurn = false;
 var cell = $('.cell');
 // Elements
 const $cell = document.querySelectorAll('.cell');
+const $img = document.querySelectorAll('img');
 
 // Parsing Query String
 const { username, room } = Qs.parse(location.search, { ignoreQueryPrefix: true });
@@ -29,8 +30,6 @@ $cell.forEach((cell) => {
 		let index = findCoordinates(event);
 		let clickedCell = $(`#id${index.row}${index.column}`);
 		let color = clickedCell.attr('data-color');
-		console.log(color);
-		console.log('next turn before emit',currentTurn)
 		if (opponentTurn) return displayErrorMessage('#turn');
 
 		if (currentTurn === color || color === 'blank') {
@@ -48,9 +47,6 @@ $cell.forEach((cell) => {
 		} else {
 			return displayErrorMessage('#info');
 		}
-		
-
-		console.log('next turn after emit',currentTurn)
     });    
 })
 
@@ -112,7 +108,6 @@ const insertAtom = (options, trigger) => {
 			});
 		}
 	}
-		
 
 	if(!error) {
 		triggerChainReaction(options);
@@ -147,7 +142,6 @@ const insertAtomToNeighbours = (obj, trigger) => {
 		}
 	}
 		
-
 	if(!error) {
 		triggetChainReactionToNeighbours(obj);
 	}
@@ -180,7 +174,7 @@ const triggetChainReactionToNeighbours = (obj) => {
 	}
 }
 
-function triggerChainReaction(options){
+function triggerChainReaction(options) {
 	var currentCell = $(`#id${options.index.row}${options.index.column}`);
 	var value = currentCell.attr('data-value');
 	var capacity = currentCell.attr('data-capacity');
@@ -253,4 +247,29 @@ function changeTurn() {
 	} else {
 		console.error('currentTurn variable is neither red nor blue');
 	}
+}
+
+
+const checkIfGameOver = () => {
+	redFlag = false;
+	blueFlag = false;
+	$img.forEach(img => {
+		const src = img.getAttribute('src');
+		if (src.indexOf('red') != -1) {
+			redFlag = true;
+		} else if (src.indexOf('blue') != -1) {
+			blueFlag = true;
+		}
+	})
+
+	if (redFlag) {
+		if (blueFlag) {
+			return false;
+		} else return true;
+	} else if (blueFlag) {
+		if (redFlag) {
+			return false;
+		} else return true;
+	}
+	return false;
 }
